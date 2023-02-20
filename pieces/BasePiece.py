@@ -25,6 +25,10 @@ class BasePiece:
         if mode == 1: return BasePiece.__popcount1(mask)
         return BasePiece.__popcount0(mask)
 
+    @staticmethod
+    def normalizeMask(mask):
+        return mask & 0xffffffffffffffff
+
     def getMoves(self, position:int):
         pass
 
