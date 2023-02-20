@@ -1,4 +1,5 @@
 class BasePiece:
+    __bits = None
 
     @staticmethod
     def __popcount0(mask):
@@ -10,7 +11,6 @@ class BasePiece:
 
         return count
 
-
     @staticmethod
     def __popcount1(mask):
         count = 0
@@ -20,10 +20,29 @@ class BasePiece:
 
         return count
 
-    @staticmethod
-    def popcount(mask, mode:int = 0):
-        if mode == 1: return BasePiece.__popcount1(mask)
-        return BasePiece.__popcount0(mask)
+    @classmethod
+    def __fill8Bits(cls):
+        cls.__bits = list()
+        for i in range(0, 255):
+            cls.__bits.append(BasePiece.__popcount1(i))
+
+    @classmethod
+    def __popcountUseCache(cls, mask):
+        if cls.__bits == None:
+            cls.__fill8Bits()
+
+        count = 0
+        while (mask > 0):
+            count += cls.__bits[mask & 255]
+            mask >>= 8
+
+        return count
+
+    @classmethod
+    def popcount(cls, mask, mode:int = 0):
+        if mode == 2: return BasePiece.__popcount1(mask)
+        if mode == 1: return BasePiece.__popcount0(mask)
+        return BasePiece.__popcountUseCache(mask)
 
     @staticmethod
     def normalizeMask(mask):

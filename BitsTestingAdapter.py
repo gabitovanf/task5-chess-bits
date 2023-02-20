@@ -26,7 +26,10 @@ class BitsTestingAdapter(TestingInstanceInterface):
             print(e)
 
         except AttributeError as e:
-            computed = { "message": 'Instance or class passed is invalid: it must contain a method .getNumPrimes(inputValue:int)' }
+            computed = { "message": """
+                Instance or class passed is invalid: it must contain a method .getMoves(position:int)
+                and class must contain a method .popcount(mask, mode)
+                """ }
             print(e)
 
         except Exception as e:
