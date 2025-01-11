@@ -36,6 +36,22 @@ reportFalseDetails = """
     ----
 """
 
+# mode - варианты подсчета единичных битов в числе:
+# 1 - вариант 1
+# count = 0
+# while (mask > 0):
+#     if mask & 1 > 0:
+#         count += 1
+#     mask >>= 1
+
+# 2 - вариант 2
+# count = 0
+# while (mask > 0):
+#     count += 1
+#     mask &= mask - 1
+
+# default - через кэширование
+
 tester0 = Tester(BitsTestingAdapter(KingPiece(), KingPiece, mode = 1), readOutputSingleLine = False)
 tester1 = Tester(BitsTestingAdapter(KingPiece(), KingPiece, mode = 2), readOutputSingleLine = False)
 tester2 = Tester(BitsTestingAdapter(KnightPiece(), KnightPiece, mode = 2), readOutputSingleLine = False)
